@@ -1,0 +1,3 @@
+.icons:not(:first-child) {
+  margin-left: auto;
+}
