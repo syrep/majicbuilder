@@ -63,6 +63,13 @@ export default function ModelPage({ modelsInfo }) {
   //   return ErrorPage();
   // }
 
+  //
+  //
+  // https://stackoverflow.com/questions/71097299/how-can-i-resolve-reactmarkdown-that-uses-children-as-a-prop-w-error-do-not-p
+  // to fix the build error, can try to return these pages back to normal soon
+  //
+  //
+
   let centerContent = (
     <>
       <div>

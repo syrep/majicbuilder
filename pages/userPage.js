@@ -68,6 +68,13 @@ export default function UserPages({ userpagesInfo }) {
   // should fix the fact that the content is in the "title" field when logging
   // console.log(props);
 
+  //
+  //
+  // https://stackoverflow.com/questions/71097299/how-can-i-resolve-reactmarkdown-that-uses-children-as-a-prop-w-error-do-not-p
+  // to fix the build error, can try to return these pages back to normal soon
+  //
+  //
+
   return (
     <PageSkeleton nav_h1={"Demo Homepage"} tab_title={"Demo Home"}>
       <ContentLayout>
