@@ -67,11 +67,13 @@ export default function ModelPage({ modelsInfo }) {
     <>
       <div>
         <h2>Description:</h2>
-        <ReactMarkdown children={modelsInfo.content} />
+        {/* <ReactMarkdown children={modelsInfo.content} /> */}
+        <ReactMarkdown>{modelsInfo.content}</ReactMarkdown>
       </div>
       <div>
         <h2>Extra Info:</h2>
-        <ReactMarkdown children={modelsInfo.data.text} />
+        {/* <ReactMarkdown children={modelsInfo.data.text} /> */}
+        <ReactMarkdown>{modelsInfo.data.text}</ReactMarkdown>
       </div>
     </>
   );

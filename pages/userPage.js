@@ -79,7 +79,8 @@ export default function UserPages({ userpagesInfo }) {
 
           <div>
             <h2>Description:</h2>
-            <ReactMarkdown children={userpagesInfo.content} />
+            {/* <ReactMarkdown children={userpagesInfo.content} /> */}
+            <ReactMarkdown>{userpagesInfo.content}</ReactMarkdown>
           </div>
 
           <div>

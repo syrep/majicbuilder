@@ -44,6 +44,8 @@ function ErrorPage() {
   );
 }
 
+// attempt to fix Prevent passing of children as props (react/no-children-prop)
+
 export default function ModelName({ modelsInfo }) {
   // console.log("props", props);
   // should fix the fact that the content is in the "title" field when logging

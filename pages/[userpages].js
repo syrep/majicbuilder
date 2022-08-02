@@ -33,6 +33,9 @@ function ErrorPage() {
     </PageSkeleton>
   );
 }
+
+// attempt to fix Prevent passing of children as props (react/no-children-prop)
+
 // export default function UserPages(props) {
 export default function UserPages({ userpagesInfo }) {
   const router = useRouter();
