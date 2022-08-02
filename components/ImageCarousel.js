@@ -53,6 +53,12 @@ function useIntersect({ root, rootMargin, threshold }) {
   //   );
   // }
 
+  //
+  //
+  // Warning: React Hook useEffect has missing dependencies: 'root', 'rootMargin', and 'threshold'. Either include them or remove the dependency array.  react-hooks/exhaustive-deps
+  //
+  //
+
   useEffect(() => {
     // detect being within client side, this is needed for build time
     // below is another way to make it work https://stackoverflow.com/questions/59424347/gatsby-intersectionobserver-is-not-defined

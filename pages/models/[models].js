@@ -17,13 +17,15 @@ import PageSkeleton from "../../components/PageSkeleton";
 import ImageCarouselView from "../../components/ImageCarouselView";
 import { getFileData, getFolderData } from "../getCmsData";
 
+import ModelPage from "./modelPage";
+
 function ErrorPage() {
   const router = useRouter();
   //console.log(router.query);
   // used to be {models} = router.query, but this makes it more simple
-  const urimodels = router.query.userpages;
+  const urimodels = router.query.models;
   // needs to be same same as [models].js
-  //console.log("query", router.query);
+  // console.log("query", router.query);
 
   // console.log("props", props);
   // should fix the fact that the content is in the "title" field when logging
@@ -48,7 +50,7 @@ export default function ModelName({ modelsInfo }) {
   const router = useRouter();
   //console.log(router.query);
   // used to be {models} = router.query, but this makes it more simple
-  const urimodels = router.query.userpages;
+  const urimodels = router.query.models;
   // needs to be same same as [models].js
   //console.log("query", router.query);
 
@@ -63,170 +65,171 @@ export default function ModelName({ modelsInfo }) {
     return ErrorPage();
   }
 
-  let centerContent = (
-    <>
-      <div>
-        <h2>Description:</h2>
-        <ReactMarkdown children={modelsInfo.content} />
-      </div>
-      <div>
-        <h2>Extra Info:</h2>
-        <ReactMarkdown children={modelsInfo.data.text} />
-      </div>
-    </>
-  );
+  // let centerContent = (
+  //   <>
+  //     <div>
+  //       <h2>Description:</h2>
+  //       <ReactMarkdown children={modelsInfo.content} />
+  //     </div>
+  //     <div>
+  //       <h2>Extra Info:</h2>
+  //       <ReactMarkdown children={modelsInfo.data.text} />
+  //     </div>
+  //   </>
+  // );
 
-  let leftSide = (
-    <>
-      <Grid item>
-        {/* <img src={trialmattter.data.image} /> */}
-        {/* {trialmattter.data.image} */}
-        {/* The above gives the URI */}
-        {/* <Box> */}
-        {/* https://nextjs.org/docs/api-reference/next/image
-                  needs to be in box because it defaults to container width
-               */}
-        {/* <Image
-        alt="The guitarist in the concert."
-        src={trialmattter.data.image || "https://via.placeholder.com/500"}
-        width={500}
-        height={500}
-        // layout="responsive"
-        // image from https://unsplash.com/photos/ipDhOQ5gtEk
-      /> */}
+  // let leftSide = (
+  //   <>
+  //     <Grid item>
+  //       {/* <img src={trialmattter.data.image} /> */}
+  //       {/* {trialmattter.data.image} */}
+  //       {/* The above gives the URI */}
+  //       {/* <Box> */}
+  //       {/* https://nextjs.org/docs/api-reference/next/image
+  //                 needs to be in box because it defaults to container width
+  //              */}
+  //       {/* <Image
+  //       alt="The guitarist in the concert."
+  //       src={trialmattter.data.image || "https://via.placeholder.com/500"}
+  //       width={500}
+  //       height={500}
+  //       // layout="responsive"
+  //       // image from https://unsplash.com/photos/ipDhOQ5gtEk
+  //     /> */}
 
-        <ImageCarouselView />
+  //       <ImageCarouselView />
 
-        {/* </Box> */}
-        {/* changing the size here does make the other side have the same height, but need to figure out if that stuff looks better centered or something */}
-      </Grid>
-    </>
-  );
+  //       {/* </Box> */}
+  //       {/* changing the size here does make the other side have the same height, but need to figure out if that stuff looks better centered or something */}
+  //     </Grid>
+  //   </>
+  // );
 
-  let rightSide = (
-    <Grid container direction="column" rowSpacing={2}>
-      <Grid item>
-        <Typography variant="h3" component="h2">
-          {modelsInfo.data.title}
-        </Typography>
-      </Grid>
-      <Grid item>
-        <Typography variant="h4" component="p">
-          {"$" + modelsInfo.data.price}
-        </Typography>
-      </Grid>
-      <Grid item container direction="row" columnSpacing={2}>
-        <Grid item>
-          <Chip icon={<DownloadIcon />} label="File Size: 451MB" />
-        </Grid>
-        <Grid item>
-          <Chip label="Version 3" />
-        </Grid>
-      </Grid>
-      <Grid item container direction="row" columnSpacing={1}>
-        <Grid item>
-          <Rating
-            name="half-rating-read"
-            defaultValue={2.5}
-            precision={0.5}
-            readOnly
-          />
-        </Grid>
-        <Grid item>
-          <Typography variant="body2" color="textSecondary" component="p">
-            0 out of 5 (No. ratings)
-          </Typography>
-          {/* <p>of 3 Ratings</p> */}
-        </Grid>
-      </Grid>
-      <Grid item container>
-        <Grid item xs={12} sm={10} md={6}>
-          <Button
-            // size="small"
-            variant="contained"
-            //color="secondary"
-            // className={styles.icons}
-            // may need to change the below to something more reusable or switchable for edit mode
-            // href={"models/" + product_title}
+  // let rightSide = (
+  //   <Grid container direction="column" rowSpacing={2}>
+  //     <Grid item>
+  //       <Typography variant="h3" component="h2">
+  //         {modelsInfo.data.title}
+  //       </Typography>
+  //     </Grid>
+  //     <Grid item>
+  //       <Typography variant="h4" component="p">
+  //         {"$" + modelsInfo.data.price}
+  //       </Typography>
+  //     </Grid>
+  //     <Grid item container direction="row" columnSpacing={2}>
+  //       <Grid item>
+  //         <Chip icon={<DownloadIcon />} label="File Size: 451MB" />
+  //       </Grid>
+  //       <Grid item>
+  //         <Chip label="Version 3" />
+  //       </Grid>
+  //     </Grid>
+  //     <Grid item container direction="row" columnSpacing={1}>
+  //       <Grid item>
+  //         <Rating
+  //           name="half-rating-read"
+  //           defaultValue={2.5}
+  //           precision={0.5}
+  //           readOnly
+  //         />
+  //       </Grid>
+  //       <Grid item>
+  //         <Typography variant="body2" color="textSecondary" component="p">
+  //           0 out of 5 (No. ratings)
+  //         </Typography>
+  //         {/* <p>of 3 Ratings</p> */}
+  //       </Grid>
+  //     </Grid>
+  //     <Grid item container>
+  //       <Grid item xs={12} sm={10} md={6}>
+  //         <Button
+  //           // size="small"
+  //           variant="contained"
+  //           //color="secondary"
+  //           // className={styles.icons}
+  //           // may need to change the below to something more reusable or switchable for edit mode
+  //           // href={"models/" + product_title}
 
-            // onClick={() => removeData(product_unique_id)}
-            //
-            //need to add the onlick for this
+  //           // onClick={() => removeData(product_unique_id)}
+  //           //
+  //           //need to add the onlick for this
 
-            startIcon={<ShoppingCartIcon />}
-            // onClick={() =>
-            //   addData({
-            //     new_rating: newFormData.rating,
-            //     new_price: newFormData.price,
-            //     new_name: newFormData.name,
-            //   })
-            // }
-            fullWidth
-          >
-            Add To Cart
-          </Button>
-        </Grid>
-      </Grid>
-      <Grid item>{centerContent}</Grid>
-    </Grid>
-  );
+  //           startIcon={<ShoppingCartIcon />}
+  //           // onClick={() =>
+  //           //   addData({
+  //           //     new_rating: newFormData.rating,
+  //           //     new_price: newFormData.price,
+  //           //     new_name: newFormData.name,
+  //           //   })
+  //           // }
+  //           fullWidth
+  //         >
+  //           Add To Cart
+  //         </Button>
+  //       </Grid>
+  //     </Grid>
+  //     <Grid item>{centerContent}</Grid>
+  //   </Grid>
+  // );
 
   return (
-    <PageSkeleton
-      nav_h1={modelsInfo.data.title}
-      tab_title={modelsInfo.data.title + " - Demo Home"}
-    >
-      <ContentLayout>
-        <>
-          {/* <h1>Model URL: {urimodels}</h1> */}
+    // <PageSkeleton
+    //   nav_h1={modelsInfo.data.title}
+    //   tab_title={modelsInfo.data.title + " - Demo Home"}
+    // >
+    //   <ContentLayout>
+    //     <>
+    //       {/* <h1>Model URL: {urimodels}</h1> */}
 
-          <TwoColumnGrid
-            topPad={"0"}
-            botPad={"0"}
-            leftsidePad={"0"}
-            contentLeft={leftSide}
-            contentRight={rightSide}
-            alignLeft={"normal"}
-            alignRight={"left"}
-          />
-          {/* <p>Model props: {props.attributes.title}</p> */}
-          {/* <props.react /> */}
+    //       <TwoColumnGrid
+    //         topPad={"0"}
+    //         botPad={"0"}
+    //         leftsidePad={"0"}
+    //         contentLeft={leftSide}
+    //         contentRight={rightSide}
+    //         alignLeft={"normal"}
+    //         alignRight={"left"}
+    //       />
+    //       {/* <p>Model props: {props.attributes.title}</p> */}
+    //       {/* <props.react /> */}
 
-          {/* <OneColumnGrid content={centerContent} justifyPosition="center" /> */}
+    //       {/* <OneColumnGrid content={centerContent} justifyPosition="center" /> */}
 
-          {/* <p>{text}</p> */}
-          {/* <div>{props.html}</div>
-      <div dangerouslySetInnerHTML={{ __html: props.html }}></div> */}
-          {/* <p>maybe: {modelInfo}</p> */}
-          {/* <p>Will load product information using the modelname</p> */}
+    //       {/* <p>{text}</p> */}
+    //       {/* <div>{props.html}</div>
+    //   <div dangerouslySetInnerHTML={{ __html: props.html }}></div> */}
+    //       {/* <p>maybe: {modelInfo}</p> */}
+    //       {/* <p>Will load product information using the modelname</p> */}
 
-          {/* <div>
-        <Chip icon={<DownloadIcon />} label="File Size" />
-        <Chip label="Version 2" />
-        <br />
-        <br />
-        <Box
-          sx={{
-            //  width: 1000,
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <Rating
-            name="half-rating-read"
-            defaultValue={2.5}
-            precision={0.5}
-            readOnly
-          />
-          <Typography variant="body2" color="textSecondary" component="p">
-            0 out of 5 (No. ratings)
-          </Typography>
-          {/* <p>of 3 Ratings</p> 
-        </Box>
-      </div> */}
-        </>
-      </ContentLayout>
-    </PageSkeleton>
+    //       {/* <div>
+    //     <Chip icon={<DownloadIcon />} label="File Size" />
+    //     <Chip label="Version 2" />
+    //     <br />
+    //     <br />
+    //     <Box
+    //       sx={{
+    //         //  width: 1000,
+    //         display: "flex",
+    //         alignItems: "center",
+    //       }}
+    //     >
+    //       <Rating
+    //         name="half-rating-read"
+    //         defaultValue={2.5}
+    //         precision={0.5}
+    //         readOnly
+    //       />
+    //       <Typography variant="body2" color="textSecondary" component="p">
+    //         0 out of 5 (No. ratings)
+    //       </Typography>
+    //       {/* <p>of 3 Ratings</p>
+    //     </Box>
+    //   </div> */}
+    //     </>
+    //   </ContentLayout>
+    // </PageSkeleton>
+    <ModelPage modelsInfo={modelsInfo} />
   );
 }
 

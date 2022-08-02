@@ -7,6 +7,8 @@ import ContentLayout from "../components/ContentLayout";
 import PageSkeleton from "../components/PageSkeleton";
 import { getFileData, getFolderData } from "./getCmsData";
 
+import UserPage from "./userPage";
+
 function ErrorPage() {
   const router = useRouter();
   //console.log(router.query);
@@ -69,25 +71,26 @@ export default function UserPages({ userpagesInfo }) {
   // console.log(props);
 
   return (
-    <PageSkeleton nav_h1={"Demo Homepage"} tab_title={"Demo Home"}>
-      <ContentLayout>
-        <div>
-          <h1>Model URL: {urimodels}</h1>
-          {/* <p>Model props: {props.attributes.title}</p> */}
-          {/* <props.react /> */}
-          <h2>Title: {userpagesInfo.data.customer}</h2>
+    // <PageSkeleton nav_h1={"Demo Homepage"} tab_title={"Demo Home"}>
+    //   <ContentLayout>
+    //     <div>
+    //       <h1>Model URL: {urimodels}</h1>
+    //       {/* <p>Model props: {props.attributes.title}</p> */}
+    //       {/* <props.react /> */}
+    //       <h2>Title: {userpagesInfo.data.customer}</h2>
 
-          <div>
-            <h2>Description:</h2>
-            <ReactMarkdown children={userpagesInfo.content} />
-          </div>
+    //       <div>
+    //         <h2>Description:</h2>
+    //         <ReactMarkdown children={userpagesInfo.content} />
+    //       </div>
 
-          <div>
-            <h2>Need to load the userpage content here</h2>
-          </div>
-        </div>
-      </ContentLayout>
-    </PageSkeleton>
+    //       <div>
+    //         <h2>Need to load the userpage content here</h2>
+    //       </div>
+    //     </div>
+    //   </ContentLayout>
+    // </PageSkeleton>
+    <UserPage userpagesInfo={userpagesInfo} />
   );
 }
 
