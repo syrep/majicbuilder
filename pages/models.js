@@ -51,7 +51,7 @@ export default function Models({ modelsList, modelsInfo }) {
                   md={3.5}
                   lg={2.5}
                   xl={2.5}
-                  key={model.slug + "-model"}
+                  key={model.data.customslug + "-model"}
                 >
                   {/* key={model.slug + "model"} makes it unique */}{" "}
                   {/* Key is higher in tree to be unique */}

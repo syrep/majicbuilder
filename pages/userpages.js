@@ -57,7 +57,7 @@ export default function Models({ userPagesList }) {
                   md={3.5}
                   lg={2.5}
                   xl={2.5}
-                  key={model.slug + "-userpage"}
+                  key={model.data.customslug + "-userpage"}
                 >
                   {/* key={model.slug + "model"} makes it unique */}{" "}
                   {/* Key is higher in tree to be unique */}

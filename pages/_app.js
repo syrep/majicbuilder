@@ -8,6 +8,9 @@ function MyApp({ Component, pageProps }) {
   // Need the themeprovider to replace the default theme here
   // https://kitson-broadhurst.medium.com/quickly-set-up-a-theme-in-material-ui-and-access-it-in-your-components-ba0565304887
 
+  //  {/* PWA primary color */}
+  //           <meta name="theme-color" content={theme.palette.primary.main} />
+
   return (
     // <StyledEngineProvider injectFirst>
     // the above caused an error to load after v4 to v5 migration, it was added by the migration codemon though
