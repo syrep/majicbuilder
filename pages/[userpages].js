@@ -7,7 +7,7 @@ import ContentLayout from "../components/ContentLayout";
 import PageSkeleton from "../components/PageSkeleton";
 import { getFileData, getFolderData } from "./getCmsData";
 
-function errorPage(props) {
+function ErrorPage(props) {
   const router = useRouter();
   //console.log(router.query);
   // used to be {models} = router.query, but this makes it more simple
@@ -32,7 +32,7 @@ function errorPage(props) {
   );
 }
 
-export default function userPages(props) {
+export default function UserPages(props) {
   const router = useRouter();
   //console.log(router.query);
   // used to be {models} = router.query, but this makes it more simple
@@ -44,11 +44,11 @@ export default function userPages(props) {
   // should fix the fact that the content is in the "title" field when logging
 
   // if (props.error) {
-  //   return errorPage();
+  //   return ErrorPage();
   // }
   if (props.userpagesInfo === null) {
     // console.log("error here");
-    return errorPage();
+    return ErrorPage();
   }
 
   // const trialmattter = matter(props.contentbody);
@@ -154,7 +154,7 @@ export async function getStaticProps({ params }) {
 
   try {
     const userpagesInfo = getFileData("userpages", params.userpages);
-    console.log(userpagesInfo);
+    // console.log(userpagesInfo);
     // console.log(getFileData("models", "test-page"));
     return {
       props: {

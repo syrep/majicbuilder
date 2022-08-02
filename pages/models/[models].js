@@ -17,7 +17,7 @@ import PageSkeleton from "../../components/PageSkeleton";
 import ImageCarouselView from "../../components/ImageCarouselView";
 import { getFileData, getFolderData } from "../getCmsData";
 
-function errorPage(props) {
+function ErrorPage(props) {
   const router = useRouter();
   //console.log(router.query);
   // used to be {models} = router.query, but this makes it more simple
@@ -42,7 +42,7 @@ function errorPage(props) {
   );
 }
 
-export default function modelName(props) {
+export default function ModelName(props) {
   // console.log("props", props);
   // should fix the fact that the content is in the "title" field when logging
   const router = useRouter();
@@ -56,11 +56,11 @@ export default function modelName(props) {
   // should fix the fact that the content is in the "title" field when logging
 
   // if (props.error) {
-  //   return errorPage();
+  //   return ErrorPage();
   // }
   if (props.modelsInfo === null) {
     // console.log("error here");
-    return errorPage();
+    return ErrorPage();
   }
 
   let centerContent = (

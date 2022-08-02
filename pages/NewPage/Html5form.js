@@ -38,7 +38,7 @@ const defaultValues = {
   os: "",
   favoriteNumber: 0,
 };
-export default function html5form(params) {
+export default function Html5form(params) {
   const [formValues, setFormValues] = useState(defaultValues);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
