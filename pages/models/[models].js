@@ -17,7 +17,7 @@ import PageSkeleton from "../../components/PageSkeleton";
 import ImageCarouselView from "../../components/ImageCarouselView";
 import { getFileData, getFolderData } from "../getCmsData";
 
-function ErrorPage(props) {
+function ErrorPage() {
   const router = useRouter();
   //console.log(router.query);
   // used to be {models} = router.query, but this makes it more simple
@@ -42,7 +42,7 @@ function ErrorPage(props) {
   );
 }
 
-export default function ModelName(props) {
+export default function ModelName({ modelsInfo }) {
   // console.log("props", props);
   // should fix the fact that the content is in the "title" field when logging
   const router = useRouter();
@@ -58,7 +58,7 @@ export default function ModelName(props) {
   // if (props.error) {
   //   return ErrorPage();
   // }
-  if (props.modelsInfo === null) {
+  if (modelsInfo === null) {
     // console.log("error here");
     return ErrorPage();
   }
@@ -67,11 +67,11 @@ export default function ModelName(props) {
     <>
       <div>
         <h2>Description:</h2>
-        <ReactMarkdown children={props.modelsInfo.content} />
+        <ReactMarkdown children={modelsInfo.content} />
       </div>
       <div>
         <h2>Extra Info:</h2>
-        <ReactMarkdown children={props.modelsInfo.data.text} />
+        <ReactMarkdown children={modelsInfo.data.text} />
       </div>
     </>
   );
@@ -107,12 +107,12 @@ export default function ModelName(props) {
     <Grid container direction="column" rowSpacing={2}>
       <Grid item>
         <Typography variant="h3" component="h2">
-          {props.modelsInfo.data.title}
+          {modelsInfo.data.title}
         </Typography>
       </Grid>
       <Grid item>
         <Typography variant="h4" component="p">
-          {"$" + props.modelsInfo.data.price}
+          {"$" + modelsInfo.data.price}
         </Typography>
       </Grid>
       <Grid item container direction="row" columnSpacing={2}>
@@ -173,8 +173,8 @@ export default function ModelName(props) {
 
   return (
     <PageSkeleton
-      nav_h1={props.modelsInfo.data.title}
-      tab_title={props.modelsInfo.data.title + " - Demo Home"}
+      nav_h1={modelsInfo.data.title}
+      tab_title={modelsInfo.data.title + " - Demo Home"}
     >
       <ContentLayout>
         <>

@@ -15,28 +15,34 @@ function ValidateFields() {
   // need to make this one above be only accept floats or something similar
   // https://stackoverflow.com/questions/12117024/decimal-number-regular-expression-where-digit-after-decimal-is-optional/12117060
 
-  useEffect(() => {
-    // Set errorMessage only if text is equal or bigger than MAX_LENGTH
-    // if (text.length >= MAX_LENGTH) {
-    //   setErrorMessage(
-    //     "The input has exceeded the maximum number of characters"
-    //   );
+  useEffect(
+    (numbers) => {
+      // Set errorMessage only if text is equal or bigger than MAX_LENGTH
+      // if (text.length >= MAX_LENGTH) {
+      //   setErrorMessage(
+      //     "The input has exceeded the maximum number of characters"
+      //   );
 
-    if (text.length >= 1 && !text.match(numbers)) {
-      setErrorMessage("Only numbers and decimals are accepted");
-    }
-  }, [text]);
+      if (text.length >= 1 && !text.match(numbers)) {
+        setErrorMessage("Only numbers and decimals are accepted");
+      }
+    },
+    [text]
+  );
   // How many useeffects can we actually have????
 
-  useEffect(() => {
-    // Set empty erroMessage only if text is less than MAX_LENGTH
-    // and errorMessage is not empty.
-    // avoids setting empty errorMessage if the errorMessage is already empty
-    // if (text.length < MAX_LENGTH && errorMessage) {
-    if (text.match(numbers) && errorMessage) {
-      setErrorMessage("");
-    }
-  }, [text, errorMessage]);
+  useEffect(
+    (numbers) => {
+      // Set empty erroMessage only if text is less than MAX_LENGTH
+      // and errorMessage is not empty.
+      // avoids setting empty errorMessage if the errorMessage is already empty
+      // if (text.length < MAX_LENGTH && errorMessage) {
+      if (text.match(numbers) && errorMessage) {
+        setErrorMessage("");
+      }
+    },
+    [text, errorMessage]
+  );
 
   return (
     <TextField

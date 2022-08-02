@@ -24,3 +24,4 @@ export default function ImageCarouselView() {
 // fix nav buttons being slow and causing re-renders (maybe from onclick doing triggering function any times)
 // fix highlighting styling on last element in list
 // fix the way the nav button spread to edge of container when not constrained (due to .slides class having 100% width instead of just width of single image)
+// fix snap-scrolling not workking anymore

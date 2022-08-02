@@ -22,8 +22,11 @@ export default function about() {
           // color="textSecondary"
           paragraph
         >
-          If you have any questions, reach out on my Discord and I'll be happy
-          to help!
+          {
+            " If you have any questions, reach out on my Discord and I'll be happy to help! "
+          }
+          {/* wrapped this way to fix react/no-unescaped-entities
+         probably won't need this when */}
         </Typography>
       </div>
     </PageSkeleton>

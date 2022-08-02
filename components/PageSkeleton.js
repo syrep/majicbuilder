@@ -11,7 +11,8 @@ export default function PageSkeleton({ children, nav_h1, tab_title }) {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <link rel="icon" href="/favicon.ico" />
         {/* Maybe need below? */}
-        <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+        {/* <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+        // the above is for using the netlify login on netlifycms */}
       </Head>
 
       <Navbar nav_h1={nav_h1} />

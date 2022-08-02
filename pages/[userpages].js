@@ -7,7 +7,7 @@ import ContentLayout from "../components/ContentLayout";
 import PageSkeleton from "../components/PageSkeleton";
 import { getFileData, getFolderData } from "./getCmsData";
 
-function ErrorPage(props) {
+function ErrorPage() {
   const router = useRouter();
   //console.log(router.query);
   // used to be {models} = router.query, but this makes it more simple
@@ -31,8 +31,8 @@ function ErrorPage(props) {
     </PageSkeleton>
   );
 }
-
-export default function UserPages(props) {
+// export default function UserPages(props) {
+export default function UserPages({ userpagesInfo }) {
   const router = useRouter();
   //console.log(router.query);
   // used to be {models} = router.query, but this makes it more simple
@@ -46,7 +46,7 @@ export default function UserPages(props) {
   // if (props.error) {
   //   return ErrorPage();
   // }
-  if (props.userpagesInfo === null) {
+  if (userpagesInfo === null) {
     // console.log("error here");
     return ErrorPage();
   }
@@ -75,11 +75,11 @@ export default function UserPages(props) {
           <h1>Model URL: {urimodels}</h1>
           {/* <p>Model props: {props.attributes.title}</p> */}
           {/* <props.react /> */}
-          <h2>Title: {props.userpagesInfo.data.customer}</h2>
+          <h2>Title: {userpagesInfo.data.customer}</h2>
 
           <div>
             <h2>Description:</h2>
-            <ReactMarkdown children={props.userpagesInfo.content} />
+            <ReactMarkdown children={userpagesInfo.content} />
           </div>
 
           <div>
