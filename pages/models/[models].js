@@ -15,9 +15,12 @@ import ContentLayout from "../../components/ContentLayout";
 import Grid from "@mui/material/Grid";
 import PageSkeleton from "../../components/PageSkeleton";
 import ImageCarouselView from "../../components/ImageCarouselView";
-import { getFileData, getFolderData } from "../getCmsData";
+// import { getFileData, getFolderData } from "../getCmsData";
+import fs from "fs";
+import path from "path";
+// import matter from "gray-matter";
 
-import ModelPage from "./modelPage";
+// import ModelPage from "./modelPage";
 
 function ErrorPage() {
   const router = useRouter();
@@ -67,176 +70,216 @@ export default function ModelName({ modelsInfo }) {
     return ErrorPage();
   }
 
-  // let centerContent = (
-  //   <>
-  //     <div>
-  //       <h2>Description:</h2>
-  //       <ReactMarkdown children={modelsInfo.content} />
-  //     </div>
-  //     <div>
-  //       <h2>Extra Info:</h2>
-  //       <ReactMarkdown children={modelsInfo.data.text} />
-  //     </div>
-  //   </>
-  // );
+  let centerContent = (
+    <>
+      <div>
+        <h2>Description:</h2>
+        <ReactMarkdown>{modelsInfo.content}</ReactMarkdown>
+      </div>
+      <div>
+        <h2>Extra Info:</h2>
+        <ReactMarkdown>{modelsInfo.data.text}</ReactMarkdown>
+      </div>
+    </>
+  );
 
-  // let leftSide = (
-  //   <>
-  //     <Grid item>
-  //       {/* <img src={trialmattter.data.image} /> */}
-  //       {/* {trialmattter.data.image} */}
-  //       {/* The above gives the URI */}
-  //       {/* <Box> */}
-  //       {/* https://nextjs.org/docs/api-reference/next/image
-  //                 needs to be in box because it defaults to container width
-  //              */}
-  //       {/* <Image
-  //       alt="The guitarist in the concert."
-  //       src={trialmattter.data.image || "https://via.placeholder.com/500"}
-  //       width={500}
-  //       height={500}
-  //       // layout="responsive"
-  //       // image from https://unsplash.com/photos/ipDhOQ5gtEk
-  //     /> */}
+  let leftSide = (
+    <>
+      <Grid item>
+        {/* <img src={trialmattter.data.image} /> */}
+        {/* {trialmattter.data.image} */}
+        {/* The above gives the URI */}
+        {/* <Box> */}
+        {/* https://nextjs.org/docs/api-reference/next/image
+                  needs to be in box because it defaults to container width
+               */}
+        {/* <Image
+        alt="The guitarist in the concert."
+        src={trialmattter.data.image || "https://via.placeholder.com/500"}
+        width={500}
+        height={500}
+        // layout="responsive"
+        // image from https://unsplash.com/photos/ipDhOQ5gtEk
+      /> */}
+        <p>
+          Need to refact the getInitialProps to a separate file as per
+          https://nextjs.org/learn/basics/dynamic-routes/implement-getstaticprops
+        </p>
+        <ImageCarouselView />
 
-  //       <ImageCarouselView />
+        {/* </Box> */}
+        {/* changing the size here does make the other side have the same height, but need to figure out if that stuff looks better centered or something */}
+      </Grid>
+    </>
+  );
 
-  //       {/* </Box> */}
-  //       {/* changing the size here does make the other side have the same height, but need to figure out if that stuff looks better centered or something */}
-  //     </Grid>
-  //   </>
-  // );
+  let rightSide = (
+    <Grid container direction="column" rowSpacing={2}>
+      <Grid item>
+        <Typography variant="h3" component="h2">
+          {modelsInfo.data.title}
+        </Typography>
+      </Grid>
+      <Grid item>
+        <Typography variant="h4" component="p">
+          {"$" + modelsInfo.data.price}
+        </Typography>
+      </Grid>
+      <Grid item container direction="row" columnSpacing={2}>
+        <Grid item>
+          <Chip icon={<DownloadIcon />} label="File Size: 451MB" />
+        </Grid>
+        <Grid item>
+          <Chip label="Version 3" />
+        </Grid>
+      </Grid>
+      <Grid item container direction="row" columnSpacing={1}>
+        <Grid item>
+          <Rating
+            name="half-rating-read"
+            defaultValue={2.5}
+            precision={0.5}
+            readOnly
+          />
+        </Grid>
+        <Grid item>
+          <Typography variant="body2" color="textSecondary" component="p">
+            0 out of 5 (No. ratings)
+          </Typography>
+          {/* <p>of 3 Ratings</p> */}
+        </Grid>
+      </Grid>
+      <Grid item container>
+        <Grid item xs={12} sm={10} md={6}>
+          <Button
+            // size="small"
+            variant="contained"
+            //color="secondary"
+            // className={styles.icons}
+            // may need to change the below to something more reusable or switchable for edit mode
+            // href={"models/" + product_title}
 
-  // let rightSide = (
-  //   <Grid container direction="column" rowSpacing={2}>
-  //     <Grid item>
-  //       <Typography variant="h3" component="h2">
-  //         {modelsInfo.data.title}
-  //       </Typography>
-  //     </Grid>
-  //     <Grid item>
-  //       <Typography variant="h4" component="p">
-  //         {"$" + modelsInfo.data.price}
-  //       </Typography>
-  //     </Grid>
-  //     <Grid item container direction="row" columnSpacing={2}>
-  //       <Grid item>
-  //         <Chip icon={<DownloadIcon />} label="File Size: 451MB" />
-  //       </Grid>
-  //       <Grid item>
-  //         <Chip label="Version 3" />
-  //       </Grid>
-  //     </Grid>
-  //     <Grid item container direction="row" columnSpacing={1}>
-  //       <Grid item>
-  //         <Rating
-  //           name="half-rating-read"
-  //           defaultValue={2.5}
-  //           precision={0.5}
-  //           readOnly
-  //         />
-  //       </Grid>
-  //       <Grid item>
-  //         <Typography variant="body2" color="textSecondary" component="p">
-  //           0 out of 5 (No. ratings)
-  //         </Typography>
-  //         {/* <p>of 3 Ratings</p> */}
-  //       </Grid>
-  //     </Grid>
-  //     <Grid item container>
-  //       <Grid item xs={12} sm={10} md={6}>
-  //         <Button
-  //           // size="small"
-  //           variant="contained"
-  //           //color="secondary"
-  //           // className={styles.icons}
-  //           // may need to change the below to something more reusable or switchable for edit mode
-  //           // href={"models/" + product_title}
+            // onClick={() => removeData(product_unique_id)}
+            //
+            //need to add the onlick for this
 
-  //           // onClick={() => removeData(product_unique_id)}
-  //           //
-  //           //need to add the onlick for this
-
-  //           startIcon={<ShoppingCartIcon />}
-  //           // onClick={() =>
-  //           //   addData({
-  //           //     new_rating: newFormData.rating,
-  //           //     new_price: newFormData.price,
-  //           //     new_name: newFormData.name,
-  //           //   })
-  //           // }
-  //           fullWidth
-  //         >
-  //           Add To Cart
-  //         </Button>
-  //       </Grid>
-  //     </Grid>
-  //     <Grid item>{centerContent}</Grid>
-  //   </Grid>
-  // );
+            startIcon={<ShoppingCartIcon />}
+            // onClick={() =>
+            //   addData({
+            //     new_rating: newFormData.rating,
+            //     new_price: newFormData.price,
+            //     new_name: newFormData.name,
+            //   })
+            // }
+            fullWidth
+          >
+            Add To Cart
+          </Button>
+        </Grid>
+      </Grid>
+      <Grid item>{centerContent}</Grid>
+    </Grid>
+  );
 
   return (
-    // <PageSkeleton
-    //   nav_h1={modelsInfo.data.title}
-    //   tab_title={modelsInfo.data.title + " - Demo Home"}
-    // >
-    //   <ContentLayout>
-    //     <>
-    //       {/* <h1>Model URL: {urimodels}</h1> */}
+    <PageSkeleton
+      nav_h1={modelsInfo.data.title}
+      tab_title={modelsInfo.data.title + " - Demo Home"}
+    >
+      <ContentLayout>
+        <>
+          {/* <h1>Model URL: {urimodels}</h1> */}
 
-    //       <TwoColumnGrid
-    //         topPad={"0"}
-    //         botPad={"0"}
-    //         leftsidePad={"0"}
-    //         contentLeft={leftSide}
-    //         contentRight={rightSide}
-    //         alignLeft={"normal"}
-    //         alignRight={"left"}
-    //       />
-    //       {/* <p>Model props: {props.attributes.title}</p> */}
-    //       {/* <props.react /> */}
+          <TwoColumnGrid
+            topPad={"0"}
+            botPad={"0"}
+            leftsidePad={"0"}
+            contentLeft={leftSide}
+            contentRight={rightSide}
+            alignLeft={"normal"}
+            alignRight={"left"}
+          />
+          {/* <p>Model props: {props.attributes.title}</p> */}
+          {/* <props.react /> */}
 
-    //       {/* <OneColumnGrid content={centerContent} justifyPosition="center" /> */}
+          {/* <OneColumnGrid content={centerContent} justifyPosition="center" /> */}
 
-    //       {/* <p>{text}</p> */}
-    //       {/* <div>{props.html}</div>
-    //   <div dangerouslySetInnerHTML={{ __html: props.html }}></div> */}
-    //       {/* <p>maybe: {modelInfo}</p> */}
-    //       {/* <p>Will load product information using the modelname</p> */}
+          {/* <p>{text}</p> */}
+          {/* <div>{props.html}</div>
+      <div dangerouslySetInnerHTML={{ __html: props.html }}></div> */}
+          {/* <p>maybe: {modelInfo}</p> */}
+          {/* <p>Will load product information using the modelname</p> */}
 
-    //       {/* <div>
-    //     <Chip icon={<DownloadIcon />} label="File Size" />
-    //     <Chip label="Version 2" />
-    //     <br />
-    //     <br />
-    //     <Box
-    //       sx={{
-    //         //  width: 1000,
-    //         display: "flex",
-    //         alignItems: "center",
-    //       }}
-    //     >
-    //       <Rating
-    //         name="half-rating-read"
-    //         defaultValue={2.5}
-    //         precision={0.5}
-    //         readOnly
-    //       />
-    //       <Typography variant="body2" color="textSecondary" component="p">
-    //         0 out of 5 (No. ratings)
-    //       </Typography>
-    //       {/* <p>of 3 Ratings</p>
-    //     </Box>
-    //   </div> */}
-    //     </>
-    //   </ContentLayout>
-    // </PageSkeleton>
-    <ModelPage modelsInfo={modelsInfo} />
+          {/* <div>
+        <Chip icon={<DownloadIcon />} label="File Size" />
+        <Chip label="Version 2" />
+        <br />
+        <br />
+        <Box
+          sx={{
+            //  width: 1000,
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <Rating
+            name="half-rating-read"
+            defaultValue={2.5}
+            precision={0.5}
+            readOnly
+          />
+          <Typography variant="body2" color="textSecondary" component="p">
+            0 out of 5 (No. ratings)
+          </Typography>
+          {/* <p>of 3 Ratings</p>
+        </Box>
+      </div> */}
+        </>
+      </ContentLayout>
+    </PageSkeleton>
+    // <ModelPage modelsInfo={modelsInfo} />
   );
 }
 
 export async function getStaticPaths() {
   // const postsListtemp = await importModels();
+  function getFolderData(folder) {
+    // console.log("folder", folder);
+    const propsDirectory = path.join(process.cwd(), `/CMScontent/${folder}/`);
+
+    // Get file names under /posts
+    const fileNames = fs.readdirSync(propsDirectory);
+    const allFolderData = fileNames.map((fileName) => {
+      // Remove ".md" from file name to get id
+      const id = fileName.replace(/\.md$/, "");
+
+      // Read markdown file as string
+      const fullPath = path.join(propsDirectory, fileName);
+      const fileContents = fs.readFileSync(fullPath, "utf8");
+
+      // Use gray-matter to parse the post metadata section
+      const matterResult = matter(fileContents);
+
+      // console.log(matterResult);
+
+      // console.log(JSON.parse(JSON.stringify(matterResult.content)));
+      // we are not using the data here as gray-matter can't extract it, we are better off using the react-markdown package
+
+      // Combine the data with the id
+      return {
+        id: id,
+        // ...matterResult.data,
+        data: matterResult.data,
+        content: matterResult.content,
+        // ...JSON.parse(JSON.stringify(matterResult.content)),
+      };
+    });
+
+    // console.log("demo", allFolderData);
+
+    return allFolderData;
+  }
+
   const postsListtemp = getFolderData("models");
   // console.log("holdup", await importModels());
   // console.log("data", postsListtemp);
@@ -289,6 +332,68 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   // const modelsList = getFolderData("models");
   // console.log("test", modelsList);
+  function getFileData(folder, file) {
+    // console.log("folder", folder);
+    const propsDirectory = path.join(
+      process.cwd(),
+      `/CMScontent/${folder}/${file}.md`
+    );
+
+    // Get file names under /posts
+    // const fileNames = fs.readdirSync(propsDirectory);
+    // const allFileData = fileNames.map((fileName) => {
+    //   // Remove ".md" from file name to get id
+    //   const id = fileName.replace(/\.md$/, "");
+
+    //   // Read markdown file as string
+    //   const fullPath = path.join(propsDirectory, fileName);
+    //   const fileContents = fs.readFileSync(fullPath, "utf8");
+
+    //   // Use gray-matter to parse the post metadata section
+    //   const matterResult = matter(fileContents);
+
+    //   // console.log(matterResult);
+
+    //   // console.log(JSON.parse(JSON.stringify(matterResult.content)));
+    //   // we are not using the data here as gray-matter can't extract it, we are better off using the react-markdown package
+
+    //   // Combine the data with the id
+    //   return {
+    //     id: id,
+    //     // ...matterResult.data,
+    //     data: matterResult.data,
+    //     content: matterResult.content,
+    //     // ...JSON.parse(JSON.stringify(matterResult.content)),
+    //   };
+    // });
+    try {
+      const preAllFileData = matter(fs.readFileSync(propsDirectory));
+
+      const allFileData = {
+        id: file,
+        data: preAllFileData.data,
+        content: preAllFileData.content,
+      };
+      // console.log("arrtest", test);
+
+      // console.log("demo", allFileData);
+
+      // console.log(
+      //   matter(
+      //     fs.readFileSync(
+      //       path.join(process.cwd(), `/CMScontent/models/test-page.md`),
+      //       "utf8"
+      //     )
+      //   )
+      // );
+
+      // return allFileData;
+      return allFileData;
+    } catch {
+      return null;
+    }
+  }
+
   const modelsInfo = getFileData("models", params.models);
   // console.log(modelsInfo);
   // console.log(getFileData("models", "test-page"));
