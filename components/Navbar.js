@@ -15,6 +15,7 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 
 import { Box } from "@mui/material";
+import { Container } from "@mui/system";
 
 // need to refactor this to take less time in the react profiler, as it is making the page take too long to load
 
@@ -53,69 +54,72 @@ export default function Navbar({ nav_h1 }) {
 
   return (
     <>
-      <AppBar
-        position="static"
-        // color={"customTEST"} //this works but the overrides for the component has higher priority
-        elevation={0} //elevation makes it no longer have a dropshadow
-      >
-        {/* 
+      <Container component={"div"} maxWidth="xxl">
+        <AppBar
+          position="static"
+          // color={"customTEST"} //this works but the overrides for the component has higher priority
+          elevation={0} //elevation makes it no longer have a dropshadow
+        >
+          {/* 
           //https://stackoverflow.com/a/67316147
           // the above isn't taking in the theme provider??
           */}
-        <Toolbar>
-          <Link className={styles.logo} href="/" passHref>
-            <a>
-              <figure>Logo</figure>
-            </a>
-          </Link>
 
-          <Typography
-            variant="h6"
-            component="h1"
-            className={styles.title}
-            color="default"
-          >
-            {nav_h1 || "Default Page Title"}
-          </Typography>
-          {/* https://mui.com/components/typography/#main-content
+          <Toolbar>
+            <Link className={styles.logo} href="/" passHref>
+              <a>
+                <figure>Logo</figure>
+              </a>
+            </Link>
+
+            <Typography
+              variant="h6"
+              component="h1"
+              className={styles.title}
+              color="default"
+            >
+              {nav_h1 || "Default Page Title"}
+            </Typography>
+            {/* https://mui.com/components/typography/#main-content
 component lets us use the h1 element without the styling aspect
 */}
 
-          <IconButton
-            edge="start"
-            // className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-            aria-controls="main-menu"
-            aria-haspopup="true"
-            onClick={handleClick}
-            size="large"
-            sx={{ display: { md: "none" } }}
-          >
-            <MenuIcon />
-          </IconButton>
+            <IconButton
+              className={styles.main_menu} // because it adds the margin-left on mobile
+              edge="start"
+              // className={classes.menuButton}
+              color="inherit"
+              aria-label="menu"
+              aria-controls="main-menu"
+              aria-haspopup="true"
+              onClick={handleClick}
+              size="large"
+              sx={{ display: { md: "none" } }}
+            >
+              <MenuIcon />
+            </IconButton>
 
-          <Box
-            component="nav"
-            className={styles.main_menu}
-            sx={{ display: { xs: "none", md: "block" } }}
-          >
-            {/* above box is needed to apply the display props, serves as a utility wrapper and replaces nav completely */}
-            {menu_items.map((value, index) => {
-              return (
-                <Link href={value.link} key={"main_menu" + index} passHref>
-                  <Button color="inherit" key={"main_menu" + index}>
-                    {/* <a key={"main_menu" + index}>{value.name}</a> */}
-                    {/* Hopefully removing the <a> above removes the nesting error */}
-                    {value.name}
-                  </Button>
-                </Link>
-              );
-            })}
-          </Box>
-        </Toolbar>
-      </AppBar>
-
+            <Box
+              component="nav"
+              className={styles.main_menu}
+              sx={{ display: { xs: "none", md: "block" } }}
+            >
+              {/* above box is needed to apply the display props, serves as a utility wrapper and replaces nav completely */}
+              {menu_items.map((value, index) => {
+                return (
+                  <Link href={value.link} key={"main_menu" + index} passHref>
+                    <Button color="inherit" key={"main_menu" + index}>
+                      {/* <a key={"main_menu" + index}>{value.name}</a> */}
+                      {/* Hopefully removing the <a> above removes the nesting error */}
+                      {value.name}
+                    </Button>
+                  </Link>
+                );
+              })}
+            </Box>
+          </Toolbar>
+        </AppBar>
+      </Container>
       <>
         <Menu
           id="main-menu"

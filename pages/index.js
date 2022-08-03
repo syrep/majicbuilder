@@ -116,6 +116,10 @@ export default function Home() {
       description:
         "need to add a skeleton loader to reduce layout shift on all components",
     },
+    {
+      description:
+        "fix the maxwidth and centering of fullwidthsection and twocolumngrid on newpage/index",
+    },
   ];
 
   return (

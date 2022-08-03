@@ -6,10 +6,7 @@ import ContentLayout from "../components/ContentLayout";
 import PageSkeleton from "../components/PageSkeleton";
 import ProductGridLayout from "../components/ProductGridLayout";
 import { Grid } from "@mui/material";
-// import { getFolderData } from "./getCmsData";
-import fs from "fs";
-import path from "path";
-// import matter from "gray-matter";
+import { getFolderData } from "../utils/getCmsData";
 
 // above is like this because of:
 // https://www.npmjs.com/package/frontmatter-markdown-loader
@@ -17,43 +14,6 @@ import path from "path";
 // to start the server run: npx netlify-cms-proxy-server
 
 export async function getStaticProps() {
-  function getFolderData(folder) {
-    // console.log("folder", folder);
-    const propsDirectory = path.join(process.cwd(), `/CMScontent/${folder}/`);
-
-    // Get file names under /posts
-    const fileNames = fs.readdirSync(propsDirectory);
-    const allFolderData = fileNames.map((fileName) => {
-      // Remove ".md" from file name to get id
-      const id = fileName.replace(/\.md$/, "");
-
-      // Read markdown file as string
-      const fullPath = path.join(propsDirectory, fileName);
-      const fileContents = fs.readFileSync(fullPath, "utf8");
-
-      // Use gray-matter to parse the post metadata section
-      const matterResult = matter(fileContents);
-
-      // console.log(matterResult);
-
-      // console.log(JSON.parse(JSON.stringify(matterResult.content)));
-      // we are not using the data here as gray-matter can't extract it, we are better off using the react-markdown package
-
-      // Combine the data with the id
-      return {
-        id: id,
-        // ...matterResult.data,
-        data: matterResult.data,
-        content: matterResult.content,
-        // ...JSON.parse(JSON.stringify(matterResult.content)),
-      };
-    });
-
-    // console.log("demo", allFolderData);
-
-    return allFolderData;
-  }
-
   const userPagesList = getFolderData("userpages");
 
   return { props: { userPagesList } };
@@ -77,10 +37,6 @@ export default function Models({ userPagesList }) {
         <div>
           <h1>Userpages</h1>
           <p>Go to /admin to actually access the edit pages for this</p>
-          <p>
-            Need to refact the getInitialProps to a separate file as per
-            https://nextjs.org/learn/basics/dynamic-routes/implement-getstaticprops
-          </p>
           {/* {console.log("pre", modelsList)} */}
           <ProductGridLayout>
             {userPagesList.map((model) => {

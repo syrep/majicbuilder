@@ -27,7 +27,8 @@ export default function TwoColumnGrid({
       // marginLeft="auto"
       // marginRight="auto"
       xl={12}
-      xxl={8}
+      // maxWidth="xxl"
+      xxl={8} //This isn't fixing the max size on newpage, seems to be still stretching
       // justifyContent={"center"} // is this actually needed?
       // columnSpacing={6}
       // rowSpacing={3}

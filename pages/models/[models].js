@@ -15,12 +15,7 @@ import ContentLayout from "../../components/ContentLayout";
 import Grid from "@mui/material/Grid";
 import PageSkeleton from "../../components/PageSkeleton";
 import ImageCarouselView from "../../components/ImageCarouselView";
-// import { getFileData, getFolderData } from "../getCmsData";
-import fs from "fs";
-import path from "path";
-// import matter from "gray-matter";
-
-// import ModelPage from "./modelPage";
+import { getFileData, getFolderData } from "../../utils/getCmsData";
 
 function ErrorPage() {
   const router = useRouter();
@@ -101,10 +96,7 @@ export default function ModelName({ modelsInfo }) {
         // layout="responsive"
         // image from https://unsplash.com/photos/ipDhOQ5gtEk
       /> */}
-        <p>
-          Need to refact the getInitialProps to a separate file as per
-          https://nextjs.org/learn/basics/dynamic-routes/implement-getstaticprops
-        </p>
+
         <ImageCarouselView />
 
         {/* </Box> */}
@@ -242,44 +234,6 @@ export default function ModelName({ modelsInfo }) {
 }
 
 export async function getStaticPaths() {
-  // const postsListtemp = await importModels();
-  function getFolderData(folder) {
-    // console.log("folder", folder);
-    const propsDirectory = path.join(process.cwd(), `/CMScontent/${folder}/`);
-
-    // Get file names under /posts
-    const fileNames = fs.readdirSync(propsDirectory);
-    const allFolderData = fileNames.map((fileName) => {
-      // Remove ".md" from file name to get id
-      const id = fileName.replace(/\.md$/, "");
-
-      // Read markdown file as string
-      const fullPath = path.join(propsDirectory, fileName);
-      const fileContents = fs.readFileSync(fullPath, "utf8");
-
-      // Use gray-matter to parse the post metadata section
-      const matterResult = matter(fileContents);
-
-      // console.log(matterResult);
-
-      // console.log(JSON.parse(JSON.stringify(matterResult.content)));
-      // we are not using the data here as gray-matter can't extract it, we are better off using the react-markdown package
-
-      // Combine the data with the id
-      return {
-        id: id,
-        // ...matterResult.data,
-        data: matterResult.data,
-        content: matterResult.content,
-        // ...JSON.parse(JSON.stringify(matterResult.content)),
-      };
-    });
-
-    // console.log("demo", allFolderData);
-
-    return allFolderData;
-  }
-
   const postsListtemp = getFolderData("models");
   // console.log("holdup", await importModels());
   // console.log("data", postsListtemp);
@@ -332,67 +286,6 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   // const modelsList = getFolderData("models");
   // console.log("test", modelsList);
-  function getFileData(folder, file) {
-    // console.log("folder", folder);
-    const propsDirectory = path.join(
-      process.cwd(),
-      `/CMScontent/${folder}/${file}.md`
-    );
-
-    // Get file names under /posts
-    // const fileNames = fs.readdirSync(propsDirectory);
-    // const allFileData = fileNames.map((fileName) => {
-    //   // Remove ".md" from file name to get id
-    //   const id = fileName.replace(/\.md$/, "");
-
-    //   // Read markdown file as string
-    //   const fullPath = path.join(propsDirectory, fileName);
-    //   const fileContents = fs.readFileSync(fullPath, "utf8");
-
-    //   // Use gray-matter to parse the post metadata section
-    //   const matterResult = matter(fileContents);
-
-    //   // console.log(matterResult);
-
-    //   // console.log(JSON.parse(JSON.stringify(matterResult.content)));
-    //   // we are not using the data here as gray-matter can't extract it, we are better off using the react-markdown package
-
-    //   // Combine the data with the id
-    //   return {
-    //     id: id,
-    //     // ...matterResult.data,
-    //     data: matterResult.data,
-    //     content: matterResult.content,
-    //     // ...JSON.parse(JSON.stringify(matterResult.content)),
-    //   };
-    // });
-    try {
-      const preAllFileData = matter(fs.readFileSync(propsDirectory));
-
-      const allFileData = {
-        id: file,
-        data: preAllFileData.data,
-        content: preAllFileData.content,
-      };
-      // console.log("arrtest", test);
-
-      // console.log("demo", allFileData);
-
-      // console.log(
-      //   matter(
-      //     fs.readFileSync(
-      //       path.join(process.cwd(), `/CMScontent/models/test-page.md`),
-      //       "utf8"
-      //     )
-      //   )
-      // );
-
-      // return allFileData;
-      return allFileData;
-    } catch {
-      return null;
-    }
-  }
 
   const modelsInfo = getFileData("models", params.models);
   // console.log(modelsInfo);

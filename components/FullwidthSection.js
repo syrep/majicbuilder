@@ -147,16 +147,18 @@ export default function FullwidthSection({
   );
 
   return (
-    <Grid
+    <Box
       sx={{
         // backgroundImage: "url(/assets/blurry-gradient-haikei.svg)",
         backgroundColor: bgColor || "#c5c8d2",
         backgroundPosition: "center",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
+
         // pt: 5,
         // pb: 5,
       }}
+      // maxWidth="xxl" // this could fix it
     >
       <TwoColumnGrid
         topPad={topPad || "0"}
@@ -167,6 +169,6 @@ export default function FullwidthSection({
         alignLeft={alignLeft}
         alignRight={alignRight}
       />
-    </Grid>
+    </Box>
   );
 }

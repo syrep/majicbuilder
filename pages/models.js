@@ -6,55 +6,9 @@ import ContentLayout from "../components/ContentLayout";
 import PageSkeleton from "../components/PageSkeleton";
 import ProductGridLayout from "../components/ProductGridLayout";
 import { Grid } from "@mui/material";
-// import {
-//   // getFileData,
-//   getFolderData,
-// } from "./getCmsData";
-import fs from "fs";
-import path from "path";
-// import matter from "gray-matter";
-
-// https://nextjs.org/learn/basics/data-fetching/implement-getstaticprops
-// perhaps use this instead? https://github.com/remarkjs/react-markdown
-// https://nodejs.dev/learn/working-with-folders-in-nodejs to understand why the prop had to be passed in this way
+import { getFolderData } from "../utils/getCmsData";
 
 export async function getStaticProps() {
-  function getFolderData(folder) {
-    // console.log("folder", folder);
-    const propsDirectory = path.join(process.cwd(), `/CMScontent/${folder}/`);
-
-    // Get file names under /posts
-    const fileNames = fs.readdirSync(propsDirectory);
-    const allFolderData = fileNames.map((fileName) => {
-      // Remove ".md" from file name to get id
-      const id = fileName.replace(/\.md$/, "");
-
-      // Read markdown file as string
-      const fullPath = path.join(propsDirectory, fileName);
-      const fileContents = fs.readFileSync(fullPath, "utf8");
-
-      // Use gray-matter to parse the post metadata section
-      const matterResult = matter(fileContents);
-
-      // console.log(matterResult);
-
-      // console.log(JSON.parse(JSON.stringify(matterResult.content)));
-      // we are not using the data here as gray-matter can't extract it, we are better off using the react-markdown package
-
-      // Combine the data with the id
-      return {
-        id: id,
-        // ...matterResult.data,
-        data: matterResult.data,
-        content: matterResult.content,
-        // ...JSON.parse(JSON.stringify(matterResult.content)),
-      };
-    });
-
-    // console.log("demo", allFolderData);
-
-    return allFolderData;
-  }
   const modelsList = getFolderData("models");
   // console.log("test", modelsList);
   // const modelsInfo = getFileData("models", "test-page");
@@ -80,10 +34,6 @@ export default function Models({ modelsList, modelsInfo }) {
         <div>
           <h1>Models</h1>
           <p>Go to /admin to actually access the edit pages for this</p>
-          <p>
-            Need to refact the getInitialProps to a separate file as per
-            https://nextjs.org/learn/basics/dynamic-routes/implement-getstaticprops
-          </p>
           <ProductGridLayout>
             {/* {console.log("pre", modelsList)} */}
             {modelsList.map((model) => {
