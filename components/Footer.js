@@ -8,55 +8,35 @@ import Link from "next/link";
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary">
-      {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Demo
+      {new Date().getFullYear() + " Copyright © "}
+      <Link color="inherit" href="https://majicsites.com.au/">
+        MajicSites
       </Link>
-      {new Date().getFullYear()}
     </Typography>
   );
 }
 
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     // minHeight: "100vh",
-//     Height: "100%",
-//     marginTop: "auto",
-//   },
-//   footer: {
-//     padding: theme.spacing(3, 2),
-//     marginTop: "auto",
 //     backgroundColor:
 //       theme.palette.mode === "light"
 //         ? theme.palette.grey[200]
 //         : theme.palette.grey[800],
-//   },
-// }));
 
 export default function Footer() {
-  // const classes = useStyles();
-
   return (
-    <div
-    //  className={classes.root}
-    >
-      <footer
-      // className={classes.footer}
-      >
-        {/* <Container maxWidth="md"> */}
-        {/* <Container sx={{ m: 3 }}> */}
-        <Container maxWidth="xl">
-          <Typography variant="body1" component={"p"}>
-            Contact me on the following socials
-          </Typography>
-          <Copyright />
-          <Link color="inherit" href="https://majicsites.com.au">
-            Website by MajicSites
-          </Link>
-          <p>these links need noreferrer, norel etc</p>
-        </Container>
-      </footer>
-    </div>
+    <footer className={styles.footer}>
+      {/* <Container maxWidth="md"> */}
+      {/* <Container sx={{ m: 3 }}> */}
+      <Container maxWidth="xl">
+        <Typography variant="body1" component={"p"}>
+          Contact me on the following socials
+        </Typography>
+        <Copyright />
+        <Link color="inherit" href="https://majicsites.com.au">
+          Website by MajicSites
+        </Link>
+        <p>these links need noreferrer, norel etc</p>
+      </Container>
+    </footer>
   );
 }
 //   return (

@@ -7,8 +7,6 @@ import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 
-// import makeStyles from "@mui/styles/makeStyles";
-// import createStyles from "@mui/styles/createStyles";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -16,7 +14,6 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 
-import CustomTheme from "../styles/theme";
 import { Box } from "@mui/material";
 
 // need to refactor this to take less time in the react profiler, as it is making the page take too long to load
@@ -48,39 +45,17 @@ export default function Navbar({ nav_h1 }) {
     // { link: "/cart", name: "Cart" },
   ];
 
-  // const useStyles = makeStyles(
-  //   (theme) =>
-  //     createStyles({
-  //       root: {
-  //         flexGrow: 1,
-  //         // background: CustomTheme.palette.background.default,
-  //       },
-  //       menuButton: {
-  //         marginRight: theme.spacing(2),
-  //       },
-  //       title: {
-  //         flexGrow: 2,
-  //         //color: "red",
-  //         //color: CustomTheme.palette.primary.main,
-  //       },
-  //     })
-  //   //{ name: "MuiNavbar" }
-
-  //   //the above method works if overriding the default styles
   //   //  "issue with navbar colour thing is because prop classname did not match server;
   //   // this issue does not exist on production build; fixed by
   //   // https://javascript.plainenglish.io/fixing-material-uis-classname-mismatch-for-react-75c6c2a2c409"
 
   //   // need to make the icon button ripple colour visible
-  // );
-
-  // const classes = useStyles();
 
   return (
     <>
       <AppBar
         position="static"
-        // color={"customNav"}
+        // color={"customTEST"} //this works but the overrides for the component has higher priority
         elevation={0} //elevation makes it no longer have a dropshadow
       >
         {/* 
@@ -88,7 +63,7 @@ export default function Navbar({ nav_h1 }) {
           // the above isn't taking in the theme provider??
           */}
         <Toolbar>
-          <Link href="/" passHref>
+          <Link className={styles.logo} href="/" passHref>
             <a>
               <figure>Logo</figure>
             </a>
@@ -97,7 +72,7 @@ export default function Navbar({ nav_h1 }) {
           <Typography
             variant="h6"
             component="h1"
-            // className={classes.title}
+            className={styles.title}
             color="default"
           >
             {nav_h1 || "Default Page Title"}
